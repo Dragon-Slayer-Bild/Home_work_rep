@@ -73,7 +73,7 @@ print(sort_by_date(state_list, False))
 
 ## To do
 - [ ] Добавить крутое README
-- [ ] 
+- [ ] Сдать на проверку ДЗ
 - [ ] 
 
 ## Команда проекта
