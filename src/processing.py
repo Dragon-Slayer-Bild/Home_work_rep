@@ -1,18 +1,18 @@
 def filter_by_state(state_list: list[dict], state: str = "EXECUTED") -> list[dict]:
     """Фильтрует список операций по статусу операции(по умолчанию статус = EXECUTED)"""
-    filtred_list = []
+    filtered_list = []
     for element in state_list:
         if state == element["state"]:
-            filtred_list.append(element)
+            filtered_list.append(element)
         else:
             None
-    return filtred_list
+    return filtered_list
 
 
 def sort_by_date(date_state_list: list[dict], reverse: bool = True) -> list[dict]:
     """Сортирует список операций по дате (по умолчанию — убывание)"""
-    filtred_date_list = sorted(date_state_list, key=lambda x: x["date"], reverse=reverse)
-    return filtred_date_list
+    filtered_date_list = sorted(date_state_list, key=lambda x: x["date"], reverse=reverse)
+    return filtered_date_list
 
 
 state_list = [
