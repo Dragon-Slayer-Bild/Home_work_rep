@@ -9,9 +9,9 @@ def mask_account_card(card_account_number: Union[str]) -> str:
     card_account_element = []
     card_account_number_split = card_account_number.split(" ")
     for element in card_account_number_split:
-        if element.isdigit() is True and len(element) == 20:
+        if element.isdigit() and len(element) == 20:
             card_account_element.append(get_mask_account(element))
-        elif element.isdigit() is True and len(element) == 16:
+        elif element.isdigit() and len(element) == 16:
             card_account_element.append(get_mask_card_number(element))
         else:
             card_account_element.append(element)
