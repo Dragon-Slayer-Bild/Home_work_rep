@@ -23,7 +23,7 @@ def test_get_mask_card_number_invalid_length():
 
 def test_get_mask_card_number_invalid_type():
     with pytest.raises(TypeError):
-        get_mask_card_number(551)
+        get_mask_card_number(51)
 
 
 def test_get_mask_account(account_number):
