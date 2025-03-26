@@ -1,8 +1,9 @@
-from typing import Iterator, Generator
+from typing import Generator, Iterator
+
 
 def filter_by_currency(transactions: list, input_code: str) -> Iterator:
     """Функция поочередно выдает транзакции,где валюта операции соответствует заданной в input_code"""
-    filtered_currency_list = filter(lambda x: x['operationAmount']['currency']['code'] == input_code, transactions)
+    filtered_currency_list = filter(lambda x: x["operationAmount"]["currency"]["code"] == input_code, transactions)
     for i in filtered_currency_list:
         yield i
 
@@ -13,7 +14,7 @@ def transaction_descriptions(transactions: list[dict]) -> Generator[str, None, N
         raise ValueError("Передано пустое значение!")
     for item in transactions:
         if "description" not in item:
-            yield 'Описание не найдено'
+            yield "Описание не найдено"
         else:
             yield item["description"]
 
@@ -24,7 +25,5 @@ def card_number_generator(start: int, end: int) -> Iterator[str]:
     """
     for number in range(start, end + 1):
         card_number = f"{number:016d}"
-        formatted_card_number = " ".join(
-            [card_number[i:i + 4] for i in range(0, 16, 4)]
-        )
+        formatted_card_number = " ".join([card_number[i : i + 4] for i in range(0, 16, 4)])
         yield formatted_card_number
