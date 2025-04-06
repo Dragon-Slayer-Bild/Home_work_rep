@@ -53,8 +53,24 @@ def test_transactions_sum_rub_only(tmp_path):
     file_path.write_text(
         json.dumps(
             [
-                {"operationAmount": {"currency": {"code": "RUB"}, "amount": "100.00"}},
-                {"operationAmount": {"currency": {"code": "RUB"}, "amount": "200.00"}},
+                {
+                    "id": 41428829,
+                    "state": "EXECUTED",
+                    "date": "2019-07-03T18:35:29.512364",
+                    "operationAmount": {"amount": "100", "currency": {"name": "руб.", "code": "RUB"}},
+                    "description": "Перевод организации",
+                    "from": "MasterCard 7158300734726758",
+                    "to": "Счет 35383033474447895560",
+                },
+                {
+                    "id": 939719570,
+                    "state": "EXECUTED",
+                    "date": "2018-06-30T02:08:58.425572",
+                    "operationAmount": {"amount": "200", "currency": {"name": "руб.", "code": "RUB"}},
+                    "description": "Перевод организации",
+                    "from": "Счет 75106830613657916952",
+                    "to": "Счет 11776614605963066702",
+                }
             ]
         ),
         encoding="utf-8",
@@ -69,8 +85,24 @@ def test_transactions_sum_usd_and_eur(tmp_path):
     file_path.write_text(
         json.dumps(
             [
-                {"operationAmount": {"currency": {"code": "USD"}, "amount": "200.00"}},
-                {"operationAmount": {"currency": {"code": "EUR"}, "amount": "300.00"}},
+                {
+                    "id": 41428829,
+                    "state": "EXECUTED",
+                    "date": "2019-07-03T18:35:29.512364",
+                    "operationAmount": {"amount": "200", "currency": {"name": "USD", "code": "USD"}},
+                    "description": "Перевод организации",
+                    "from": "MasterCard 7158300734726758",
+                    "to": "Счет 35383033474447895560",
+                },
+                {
+                    "id": 939719570,
+                    "state": "EXECUTED",
+                    "date": "2018-06-30T02:08:58.425572",
+                    "operationAmount": {"amount": "300", "currency": {"name": "EUR", "code": "EUR"}},
+                    "description": "Перевод организации",
+                    "from": "Счет 75106830613657916952",
+                    "to": "Счет 11776614605963066702",
+                }
             ]
         ),
         encoding="utf-8",
