@@ -1,6 +1,5 @@
 import json
 import os
-from unittest.mock import patch
 
 import pytest
 
@@ -46,7 +45,8 @@ def mock_transactions_file(tmp_path):
     file_path.write_text(json_data, encoding="utf-8")
     return file_path
 
-def test_transactions_sum_rub_only(tmp_path,mock_transactions_file):
+
+def test_transactions_sum_rub_only(tmp_path, mock_transactions_file):
     """Только транзакции в рублях."""
 
     result = transactions_sum(mock_transactions_file)
@@ -88,4 +88,3 @@ def test_transactions_sum_file_not_found(tmp_path):
     """Файл не найден."""
     result = transactions_sum(filename="ololol.json", dirname=str(tmp_path))
     assert result == []
-

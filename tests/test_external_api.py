@@ -9,45 +9,35 @@ from src.external_api import convert_currency
 @pytest.fixture
 def transaction_example(tmp_path):
     """Создает временный файл transactions.json с тестовыми данными."""
-    data =     {
-    "id": 41428829,
-    "state": "EXECUTED",
-    "date": "2019-07-03T18:35:29.512364",
-    "operationAmount": {
-      "amount": "8221.37",
-      "currency": {
-        "name": "USD",
-        "code": "USD"
-      }
-    },
-    "description": "Перевод организации",
-    "from": "MasterCard 7158300734726758",
-    "to": "Счет 35383033474447895560"
-  }
+    data = {
+        "id": 41428829,
+        "state": "EXECUTED",
+        "date": "2019-07-03T18:35:29.512364",
+        "operationAmount": {"amount": "8221.37", "currency": {"name": "USD", "code": "USD"}},
+        "description": "Перевод организации",
+        "from": "MasterCard 7158300734726758",
+        "to": "Счет 35383033474447895560",
+    }
     return data
+
 
 @pytest.fixture
 def transaction_example_invalid_amount(tmp_path):
     """Создает временный файл transactions.json с тестовыми данными."""
-    data =     {
-    "id": 41428829,
-    "state": "EXECUTED",
-    "date": "2019-07-03T18:35:29.512364",
-    "operationAmount": {
-      "amount": "-8221.37",
-      "currency": {
-        "name": "USD",
-        "code": "USD"
-      }
-    },
-    "description": "Перевод организации",
-    "from": "MasterCard 7158300734726758",
-    "to": "Счет 35383033474447895560"
-  }
+    data = {
+        "id": 41428829,
+        "state": "EXECUTED",
+        "date": "2019-07-03T18:35:29.512364",
+        "operationAmount": {"amount": "-8221.37", "currency": {"name": "USD", "code": "USD"}},
+        "description": "Перевод организации",
+        "from": "MasterCard 7158300734726758",
+        "to": "Счет 35383033474447895560",
+    }
     return data
 
+
 @patch("requests.get")
-def test_convert_currency(mock_get,transaction_example):
+def test_convert_currency(mock_get, transaction_example):
     """Тест вызова функции для пересчета суммы иностранной валюты в рубли"""
 
     mock_json_result = {
@@ -70,7 +60,7 @@ def test_convert_currency(mock_get,transaction_example):
 
 
 @patch("requests.get")
-def test_convert_currency_invalid_api_key(mock_get,transaction_example):
+def test_convert_currency_invalid_api_key(mock_get, transaction_example):
     """Тест на проверку не валидности api ключа"""
     mock_get.return_value.json.return_value = {"message": "Invalid API Key"}
     result = convert_currency(transaction_example)
