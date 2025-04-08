@@ -8,7 +8,7 @@ from src.external_api import convert_currency
 
 @pytest.fixture
 def transaction_example(tmp_path):
-    """Создает временный файл transactions.json с тестовыми данными."""
+    """Пример транзакции с корректной суммой."""
     data = {
         "id": 41428829,
         "state": "EXECUTED",
@@ -23,7 +23,7 @@ def transaction_example(tmp_path):
 
 @pytest.fixture
 def transaction_example_invalid_amount(tmp_path):
-    """Создает временный файл transactions.json с тестовыми данными."""
+    """ример транзакции с не корректной суммой."""
     data = {
         "id": 41428829,
         "state": "EXECUTED",

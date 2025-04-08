@@ -3,7 +3,7 @@ import os
 
 
 # путь относительный (filename="operations.json", dirname="C:\\Users\\2B\\PycharmProjects\\HomeWorkPoetry\\data")
-def transactions_sum(filename="operations3.json", dirname="data") -> list:
+def transactions_list_from_file(filename="operations3.json", dirname="data") -> list:
     """
     Функция принимает путь с файлом, где хранятся операции и возвращает список этих операций
     """

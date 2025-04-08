@@ -3,7 +3,7 @@ import os
 
 import pytest
 
-from src.utils import transactions_sum
+from src.utils import transactions_list_from_file
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "test_data")
 
@@ -46,10 +46,10 @@ def mock_transactions_file(tmp_path):
     return file_path
 
 
-def test_transactions_sum_rub_only(tmp_path, mock_transactions_file):
-    """Только транзакции в рублях."""
+def test_transactions_(tmp_path, mock_transactions_file):
+    """Корректный ответ со списком транзакций"""
 
-    result = transactions_sum(mock_transactions_file)
+    result = transactions_list_from_file(mock_transactions_file)
 
     expected_result = [
         {
@@ -86,5 +86,5 @@ def test_transactions_sum_rub_only(tmp_path, mock_transactions_file):
 
 def test_transactions_sum_file_not_found(tmp_path):
     """Файл не найден."""
-    result = transactions_sum(filename="ololol.json", dirname=str(tmp_path))
+    result = transactions_list_from_file(filename="ololol.json", dirname=str(tmp_path))
     assert result == []
