@@ -10,7 +10,13 @@ def mask_account_card(card_account_number: Union[str]) -> str:
     card_account_element = []
 
     if not isinstance(card_account_number, str):
-        raise TypeError("неверный тип данных")
+        try:
+            card_account_number = str(card_account_number)
+        except Exception:
+            raise TypeError("неверный тип данных")
+
+    if not card_account_number:
+        return ""
 
     card_account_number_split = card_account_number.split(" ")
     for element in card_account_number_split:
@@ -28,7 +34,8 @@ def mask_account_card(card_account_number: Union[str]) -> str:
 def get_date(date_unformate: str) -> str:
     """Форматирование даты в формат ДД.ММ.ГГГГ"""
     try:
-        formatted_date = datetime.strptime(date_unformate, "%Y-%m-%dT%H:%M:%S.%f")
+        date_string_iso = date_unformate.replace("Z", "+00:00")
+        formatted_date = datetime.fromisoformat(date_string_iso)
         return formatted_date.strftime("%d.%m.%Y")
     except ValueError:
         raise ValueError("Некорректный формат даты")

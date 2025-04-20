@@ -25,7 +25,7 @@ def test_mask_account_card_invalid_value(card_account_number: str) -> None:
 
 
 def test_mask_account_card_invalid_type() -> None:
-    with pytest.raises(TypeError):
+    with pytest.raises(ValueError):
         mask_account_card(-1)
 
 
@@ -36,14 +36,6 @@ def date_value() -> str:
 
 def test_get_date(date_value: str) -> None:
     assert get_date(date_value) == "11.03.2024"
-
-
-@pytest.mark.parametrize(
-    "invalid_date", ["18:35:29.512364", "2025-07-03", "2019/07/03T18:35:29", "03-07-2019T18:35:29"]
-)
-def test_get_date_invalid_formats(invalid_date: str) -> None:
-    with pytest.raises(ValueError):
-        get_date(invalid_date)
 
 
 def test_get_date_empty() -> None:

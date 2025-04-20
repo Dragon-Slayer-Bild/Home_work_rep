@@ -41,6 +41,3 @@ def transactions_list_from_file(filename="operations.json", dirname="data") -> l
         print(f"Произошла ошибка при чтении файла: {e}")
         logger.error(f"Произошла ошибка при чтении файла: {e}")
         return []
-
-
-print(transactions_list_from_file())
