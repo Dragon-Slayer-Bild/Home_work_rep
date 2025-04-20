@@ -1,6 +1,6 @@
 from src.csv_xlsx_utils import transactions_list_from_csv_file, transactions_list_from_xlsx_file
 from src.generators import filter_by_currency, transaction_descriptions
-from src.processing import filter_by_state, sort_by_date
+from src.processing import filter_by_state, sort_by_date, transaction_search
 from src.utils import transactions_list_from_file
 from src.widget import get_date, mask_account_card
 
@@ -103,10 +103,33 @@ def main():
         if currency_input.lower() == "да":
             currency_code = "RUB"
             # осуществляем вызов генератора для получения списка транзакций по валюте
-            filtered_transactions = filter_by_currency(transaction_list_by_status_date, input_code=currency_code)
-            # осуществляем вызов генератора для получения назначения платежа
-            descriptions = transaction_descriptions(transaction_list_by_status_date)
+            transaction_list_by_status_date_currency_gen = filter_by_currency(
+                transaction_list_by_status_date, input_code=currency_code
+            )
+            transaction_list_by_status_date_currency = []
+            for transaction in transaction_list_by_status_date_currency_gen:
+                transaction_list_by_status_date_currency.append(transaction)
+            print(transaction_list_by_status_date_currency)
+            break
 
+        elif currency_input.lower() == "нет":
+            # осуществляем вызов генератора для получения назначения платежа
+            transaction_list_by_status_date_currency = transaction_list_by_status
+            print(transaction_list_by_status_date_currency)
+            break
+
+        else:
+            print("\nНеверно. Выберите пункт из предложенного фильтра\n")
+
+    while True:
+        word_input = input("Отфильтровать список транзакций по определенному слову в описании? Да/Нет\n")
+
+        if word_input.lower() == "да":
+            descriptions = transaction_descriptions(transaction_list_by_status_date_currency)
+
+            word_input_search = input("Введите слово\n")
+
+            filtered_transactions = transaction_search(transaction_list_by_status_date_currency, word_input_search)
             formatted_transactions = []
             count = 0
 
@@ -143,16 +166,16 @@ def main():
                 print("Не найдено ни одной транзакции, подходящей под ваши условия фильтрации")
                 break
 
-        elif currency_input.lower() == "нет":
+        elif word_input.lower() == "нет":
             # осуществляем вызов генератора для получения назначения платежа
-            descriptions = transaction_descriptions(transaction_list_by_status_date)
+            descriptions = transaction_descriptions(transaction_list_by_status_date_currency)
 
             formatted_transactions = []
             count = 0
 
             try:
                 # из списка транзакций формируем необходимые переменые для списка формирования необходимого формата
-                for get_transaction, description in zip(transaction_list_by_status_date, descriptions):
+                for get_transaction, description in zip(transaction_list_by_status_date_currency, descriptions):
                     print(count)
                     formatted_date = get_date(get_transaction["date"])
                     pay_from = mask_account_card(get_transaction.get("from", ""))
