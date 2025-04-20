@@ -1,7 +1,8 @@
+from typing import Dict
+
 import pytest
 
-from src.processing import filter_by_state, sort_by_date, transaction_search, transaction_count
-from typing import Dict
+from src.processing import filter_by_state, sort_by_date, transaction_count, transaction_search
 
 
 @pytest.fixture
@@ -49,7 +50,8 @@ def test_filter_by_invalid_state() -> None:
             {"id": 594226727, "state": "CANCELED", "date": "2018-09-12T21:27:25.241689"},
             {"id": 615064591, "state": "CANCELED", "date": "2018-10-14T08:21:33.419441"},
         ],
-        state="EXsdasdaECUTEDsss")
+        state="EXsdasdaECUTEDsss",
+    )
 
     expected = []
     assert result == expected
@@ -137,68 +139,45 @@ def test_transaction_search_empty_list():
 
 
 def test_transaction_count_basic():
-    transactions = [{
-    "id": 441945886,
-    "state": "EXECUTED",
-    "date": "2019-08-26T10:50:58.294041",
-    "operationAmount": {
-      "amount": "31957.58",
-      "currency": {
-        "name": "руб.",
-        "code": "RUB"
-      }
-    },
-    "description": "КАТА 1",
-    "from": "Maestro 1596837868705199",
-    "to": "Счет 64686473678894779589"
-  },
-  {
-    "id": 41428829,
-    "state": "EXECUTED",
-    "date": "2019-07-03T18:35:29.512364",
-    "operationAmount": {
-      "amount": "8221.37",
-      "currency": {
-        "name": "USD",
-        "code": "USD"
-      }
-    },
-    "description": "КАТА 2",
-    "from": "MasterCard 7158300734726758",
-    "to": "Счет 35383033474447895560"
-  },
-    {
-        "id": 41428829,
-        "state": "EXECUTED",
-        "date": "2019-07-03T18:35:29.512364",
-        "operationAmount": {
-            "amount": "8221.37",
-            "currency": {
-                "name": "USD",
-                "code": "USD"
-            }
+    transactions = [
+        {
+            "id": 441945886,
+            "state": "EXECUTED",
+            "date": "2019-08-26T10:50:58.294041",
+            "operationAmount": {"amount": "31957.58", "currency": {"name": "руб.", "code": "RUB"}},
+            "description": "КАТА 1",
+            "from": "Maestro 1596837868705199",
+            "to": "Счет 64686473678894779589",
         },
-        "description": "КАТА 2",
-        "from": "MasterCard 7158300734726758",
-        "to": "Счет 35383033474447895560"
-    },
-    {
-        "id": 41428829,
-        "state": "EXECUTED",
-        "date": "2019-07-03T18:35:29.512364",
-        "operationAmount": {
-            "amount": "8221.37",
-            "currency": {
-                "name": "USD",
-                "code": "USD"
-            }
+        {
+            "id": 41428829,
+            "state": "EXECUTED",
+            "date": "2019-07-03T18:35:29.512364",
+            "operationAmount": {"amount": "8221.37", "currency": {"name": "USD", "code": "USD"}},
+            "description": "КАТА 2",
+            "from": "MasterCard 7158300734726758",
+            "to": "Счет 35383033474447895560",
         },
-        "description": "д",
-        "from": "MasterCard 7158300734726758",
-        "to": "Счет 35383033474447895560"
-    }
-]
-    category_list = ['КАТА 1', 'КАТА 2', 'д']
+        {
+            "id": 41428829,
+            "state": "EXECUTED",
+            "date": "2019-07-03T18:35:29.512364",
+            "operationAmount": {"amount": "8221.37", "currency": {"name": "USD", "code": "USD"}},
+            "description": "КАТА 2",
+            "from": "MasterCard 7158300734726758",
+            "to": "Счет 35383033474447895560",
+        },
+        {
+            "id": 41428829,
+            "state": "EXECUTED",
+            "date": "2019-07-03T18:35:29.512364",
+            "operationAmount": {"amount": "8221.37", "currency": {"name": "USD", "code": "USD"}},
+            "description": "д",
+            "from": "MasterCard 7158300734726758",
+            "to": "Счет 35383033474447895560",
+        },
+    ]
+    category_list = ["КАТА 1", "КАТА 2", "д"]
     expected_counts = {"КАТА 1": 1, "КАТА 2": 2, "д": 1}
     assert transaction_count(transactions, category_list) == expected_counts
 

@@ -1,7 +1,7 @@
-from datetime import datetime
 import re
 from collections import Counter
-from typing import List, Dict
+from datetime import datetime
+from typing import Dict
 
 
 def filter_by_state(state_list: list[dict], *, state: str = "EXECUTED") -> list[dict]:
@@ -25,7 +25,7 @@ def filter_by_state(state_list: list[dict], *, state: str = "EXECUTED") -> list[
 def sort_by_date(date_state_list: list[dict], *, reverse: bool = True) -> str | list[dict]:
     """Сортирует список операций по дате (по умолчанию — убывание)"""
     filtered_date_list = sorted(
-        date_state_list, key=lambda x: datetime.fromisoformat(x["date"].replace('Z', '+00:00')), reverse=reverse
+        date_state_list, key=lambda x: datetime.fromisoformat(x["date"].replace("Z", "+00:00")), reverse=reverse
     )
     return filtered_date_list
 
@@ -33,15 +33,19 @@ def sort_by_date(date_state_list: list[dict], *, reverse: bool = True) -> str | 
 def transaction_search(transactions_list: list[dict], search_string: str) -> str | list[dict]:
     """Поиск транзакции  по описанию"""
     try:
-        transactions = [ transaction for transaction in transactions_list if re.findall(search_string, transaction['description'], flags=re.IGNORECASE)]
+        transactions = [
+            transaction
+            for transaction in transactions_list
+            if re.findall(search_string, transaction["description"], flags=re.IGNORECASE)
+        ]
         return transactions
 
     except TypeError:
-        return 'Неверный формат операций, должен быть список'
+        return "Неверный формат операций, должен быть список"
 
 
 def transaction_count(transactions_list: list[dict], category_list: list):
-    '''Количество транзакций по категориям'''
+    """Количество транзакций по категориям"""
 
     category_counts: Dict[str, int] = {category: 0 for category in category_list}
     counts_list = []
