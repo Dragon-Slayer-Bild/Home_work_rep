@@ -3,9 +3,17 @@ from typing import Generator, Iterator
 
 def filter_by_currency(transactions: list, input_code: str) -> Iterator:
     """Функция поочередно выдает транзакции,где валюта операции соответствует заданной в input_code"""
-    filtered_currency_list = filter(lambda x: x["operationAmount"]["currency"]["code"] == input_code, transactions)
-    for i in filtered_currency_list:
-        yield i
+    for transaction in transactions:
+        try:
+            code = transaction["operationAmount"]["currency"]["code"]
+        except (KeyError, TypeError):
+            code = None  # Если структура operationAmount отсутствует или неверна
+
+        if code is None:
+            code = transaction.get("currency_code")
+
+        if code == input_code:
+            yield transaction
 
 
 def transaction_descriptions(transactions: list[dict]) -> Generator[str, None, None]:
